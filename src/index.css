@@ -1,18 +1,18 @@
 @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=satoshi@400,500,700&display=swap");
 
 :root {
-  --bg: #0a0910;
-  --card: #15121c;
-  --card-border: rgba(232, 179, 61, 0.14);
-  --card-border-hover: rgba(232, 179, 61, 0.45);
-  --gold: #e8b33d;
-  --gold-deep: #b9791c;
-  --cream: #f4eee2;
-  --text-dim: #948ea3;
-  --text-faint: #5c5768;
-  --red: #d6483f;
-  --teal: #2e8c93;
-  --violet: #6e5aa8;
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --card-border: rgba(86, 74, 59, 0.12);
+  --card-border-hover: rgba(211, 112, 48, 0.34);
+  --gold: #d97936;
+  --gold-deep: #aa5429;
+  --cream: #211f1b;
+  --text-dim: #6f6a63;
+  --text-faint: #918a80;
+  --red: #b94f42;
+  --teal: #68866c;
+  --violet: #857b6f;
   --whatsapp: #25d366;
   --whatsapp-deep: #128c4e;
 

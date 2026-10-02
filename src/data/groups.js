@@ -24,7 +24,7 @@ export const groups = [
 export const page = {
   kicker: "We are the...",
   title: "CITY TAKERS",
-  subtitle: "Kindly join ONLY ONE group as joining multiple groups will result in your eviction.",
+  subtitle: "DO NOT JOIN if you are in an existing volunteers group. Joining multiple groups will result in your eviction.",
   footerNote: "Can't find your unit or department?",
   footerContact: "For more info, kindly contact the admin on +234 704 878 2063.",
 };

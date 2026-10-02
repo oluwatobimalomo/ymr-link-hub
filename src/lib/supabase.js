@@ -11,7 +11,7 @@ export function toLink(row) {
 }
 
 export function toForm(row) {
-  return { id: row.id, slug: row.slug, title: row.title, description: row.description || "", fields: row.fields || [] };
+  return { id: row.id, slug: row.slug, title: row.title, description: row.description || "", fields: row.fields || [], headerImage: row.header_image || "", successMessage: row.success_message || "Your response has been received." };
 }
 
 export function toResponse(row) {

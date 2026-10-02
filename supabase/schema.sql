@@ -38,6 +38,8 @@ create table if not exists public.forms (
   title text not null,
   description text not null default '',
   fields jsonb not null default '[]'::jsonb,
+  header_image text,
+  success_message text not null default 'Your response has been received.',
   is_published boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -161,3 +163,23 @@ grant select on public.links, public.forms to anon, authenticated;
 grant insert on public.form_responses to anon, authenticated;
 grant select, insert, update, delete on public.links, public.forms, public.qr_codes to authenticated;
 grant select on public.admin_users, public.form_responses, public.link_clicks, public.qr_scans to authenticated;
+
+-- Form images are public; submitted attachments stay private and are downloaded with signed URLs.
+insert into storage.buckets (id, name, public, file_size_limit)
+values ('form-header-images', 'form-header-images', true, 5242880),
+       ('form-response-files', 'form-response-files', false, 5242880)
+on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit;
+
+create policy "Public can view form header images" on storage.objects for select to anon, authenticated
+  using (bucket_id = 'form-header-images');
+create policy "Admins manage form header images" on storage.objects for all to authenticated
+  using (bucket_id = 'form-header-images' and public.is_link_hub_admin())
+  with check (bucket_id = 'form-header-images' and public.is_link_hub_admin());
+create policy "Public can upload files to published forms" on storage.objects for insert to anon, authenticated
+  with check (
+    bucket_id = 'form-response-files'
+    and (storage.foldername(name))[1] = 'responses'
+    and exists (select 1 from public.forms f where f.id::text = (storage.foldername(name))[2] and f.is_published)
+  );
+create policy "Admins can download form response files" on storage.objects for select to authenticated
+  using (bucket_id = 'form-response-files' and public.is_link_hub_admin());

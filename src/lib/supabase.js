@@ -7,7 +7,7 @@ export const supabase = url && key ? createClient(url, key) : null;
 export const supabaseConfigured = Boolean(supabase);
 
 export function toLink(row) {
-  return { id: row.id, name: row.name, desc: row.description || "", link: row.destination_url, members: row.members_label || "Open to all", clicks: row.clicks || 0 };
+  return { id: row.id, name: row.name, desc: row.description || "", link: row.destination_url, members: row.members_label || "Open to all", clicks: row.clicks || 0, pageKey: row.page_key || "main" };
 }
 
 export function toForm(row) {

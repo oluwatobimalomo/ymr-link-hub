@@ -4,9 +4,9 @@ A static React site for YMR Global group links, custom forms, and QR codes.
 
 ## Admin
 
-- Open `/admin` to manage the links shown on the landing page.
+- Open `/admin` to manage the main landing page and a separate department landing page at `/departments`.
 - Create forms with short answer, email, phone, long answer, and dropdown fields.
-- Each form gets a shareable `/form/<slug>` URL. Its field configuration is encoded into that URL so the form can render on a static host.
+- Each form gets a short shareable `/f/<slug>` URL. Existing `/form/<slug>` URLs continue to work. Use the form's URL slug field to choose a concise name such as `reg-team`.
 - Open a form's response viewer to review submissions, see submission and active-day totals, and export a CSV.
 - Paste any URL into the QR code maker and download its QR image.
 
@@ -15,7 +15,7 @@ A static React site for YMR Global group links, custom forms, and QR codes.
 The SQL schema is in `supabase/schema.sql`. It creates the links, forms, responses, QR codes, click/scan event tables, row-level security policies, and public tracking RPCs. The React app uses Supabase for admin sign-in, shared data, public form submissions, and tracked redirects.
 
 1. Create a Supabase project in the [Supabase Dashboard](https://supabase.com/dashboard).
-2. Open **SQL Editor**, create a query, paste all of `supabase/schema.sql`, and run it once. If you already ran the earlier schema, run `supabase/forms_upgrade.sql` instead; it adds the custom form settings and upload buckets without replacing existing data.
+2. Open **SQL Editor**, create a query, paste all of `supabase/schema.sql`, and run it once. If the project already has the earlier schema, run `supabase/forms_upgrade.sql` instead; it adds the department landing-page column, custom form settings, and upload buckets without replacing existing data.
 3. In **Authentication > Users**, create your admin user. Disable public sign-ups after creating the admin account.
 4. In SQL Editor, grant the admin user access by inserting their user ID:
 
@@ -50,7 +50,7 @@ npm run dev
 npm run build
 ```
 
-The output is in `dist/`. Netlify and Vercel rewrites are included for direct navigation to `/admin` and `/form/...`. Other static hosts need an equivalent SPA fallback that serves `index.html` for these paths.
+The output is in `dist/`. Vercel rewrites are included for direct navigation to `/admin`, `/departments`, `/f/...`, and legacy `/form/...` routes. Other static hosts need an equivalent SPA fallback that serves `index.html` for these paths.
 
 ## Branding
 

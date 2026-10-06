@@ -5,6 +5,18 @@ alter table public.forms
   add column if not exists header_image text,
   add column if not exists success_message text not null default 'Your response has been received.';
 
+alter table public.links
+  add column if not exists page_key text not null default 'main';
+
+do $$ begin
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'links_page_key_check' and conrelid = 'public.links'::regclass
+  ) then
+    alter table public.links add constraint links_page_key_check check (page_key in ('main', 'departments'));
+  end if;
+end $$;
+
 insert into storage.buckets (id, name, public, file_size_limit)
 values ('form-header-images', 'form-header-images', true, 5242880),
        ('form-response-files', 'form-response-files', false, 5242880)

@@ -26,6 +26,7 @@ create table if not exists public.links (
   description text not null default '',
   destination_url text not null,
   members_label text not null default 'Open to all',
+  is_open boolean not null default true,
   page_key text not null default 'main' check (page_key in ('main', 'departments')),
   position integer not null default 0,
   is_active boolean not null default true,

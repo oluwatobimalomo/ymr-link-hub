@@ -4,7 +4,8 @@ A static React site for YMR Global group links, custom forms, and QR codes.
 
 ## Admin
 
-- Open `/admin` to manage the main landing page and a separate department landing page at `/departments`.
+- Open `/admin` to manage the main landing page and a separate department landing page at `/departments`. Links are listed alphabetically and can be marked **Open to all** or **Closed Group**; closed groups have no clickable invite link.
+- Public WhatsApp invite previews supply the group image when WhatsApp makes one available; the site falls back to the WhatsApp icon if a preview has no image.
 - Create forms with short answer, email, phone, long answer, and dropdown fields.
 - Each form gets a short shareable `/f/<slug>` URL. Existing `/form/<slug>` URLs continue to work. Use the form's URL slug field to choose a concise name such as `reg-team`.
 - Open a form's response viewer to review submissions, see submission and active-day totals, and export a CSV.

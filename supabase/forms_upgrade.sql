@@ -1,12 +1,14 @@
 -- Run once in Supabase Dashboard > SQL Editor for an existing YMR Link Hub database.
 -- Adds the form settings and private/public Storage buckets used by the expanded form builder.
 
-alter table public.forms
-  add column if not exists header_image text,
-  add column if not exists success_message text not null default 'Your response has been received.';
+alter table public.forms add column if not exists header_image text;
+alter table public.forms add column if not exists success_message text not null default 'Your response has been received.';
 
-alter table public.links
-  add column if not exists page_key text not null default 'main';
+alter table public.links add column if not exists page_key text not null default 'main';
+alter table public.links add column if not exists is_open boolean not null default true;
+
+-- Preserve the intent of links that used the old free-form access label.
+update public.links set is_open = false where lower(members_label) like 'closed%';
 
 do $$ begin
   if not exists (

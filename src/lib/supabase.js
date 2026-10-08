@@ -7,7 +7,8 @@ export const supabase = url && key ? createClient(url, key) : null;
 export const supabaseConfigured = Boolean(supabase);
 
 export function toLink(row) {
-  return { id: row.id, name: row.name, desc: row.description || "", link: row.destination_url, members: row.members_label || "Open to all", clicks: row.clicks || 0, pageKey: row.page_key || "main" };
+  const isOpen = typeof row.is_open === "boolean" ? row.is_open : !/^closed/i.test(row.members_label || "");
+  return { id: row.id, name: row.name, desc: row.description || "", link: row.destination_url, isOpen, members: isOpen ? "Open to all" : "Closed Group", clicks: row.clicks || 0, pageKey: row.page_key || "main" };
 }
 
 export function toForm(row) {

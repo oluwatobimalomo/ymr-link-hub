@@ -22,7 +22,7 @@
 .ray-burst__spin {
   position: absolute;
   inset: 0;
-  animation: rayspin 90s linear infinite;
+  animation: rayspin 32s linear infinite;
 }
 
 .ray-burst__ray {
@@ -32,7 +32,7 @@
   width: 3px;
   height: 420px;
   transform-origin: top center;
-  animation: raypulse 4s ease-in-out infinite;
+  animation: raypulse 3s ease-in-out infinite;
 }
 
 .ray-burst__ray--gold {
@@ -422,6 +422,9 @@ button, .button { min-height: 40px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  /* Keep the decorative ray burst moving; all other motion still respects this setting. */
+  .ray-burst__spin { animation-duration: 32s !important; animation-iteration-count: infinite !important; }
+  .ray-burst__ray { animation-duration: 3s !important; animation-iteration-count: infinite !important; }
 }
 
 .login-wrap { min-height: 100vh; padding: 24px; display: grid; place-items: center; color: var(--cream); background: radial-gradient(ellipse 70% 45% at 50% 0%, #fff6e9 0%, #f6f4ef 70%); }

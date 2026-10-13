@@ -4,7 +4,7 @@ A static React site for YMR Global group links, custom forms, and QR codes.
 
 ## Admin
 
-- Open `/admin` to manage the main landing page and a separate department landing page at `/departments`. Links are listed alphabetically and can be marked **Open to all** or **Closed Group**; closed groups have no clickable invite link.
+- Open `/admin` to manage the main, department (`/departments`), and campus (`/campuses`) landing pages. Links are listed alphabetically and can be marked **Open to all** or **Closed Group**; closed groups have no clickable invite link. Campus links use a two-column layout on wider screens.
 - Public WhatsApp invite previews supply the group image when WhatsApp makes one available; the site falls back to the WhatsApp icon if a preview has no image.
 - Create forms with short answer, email, phone, long answer, and dropdown fields.
 - Each form gets a short shareable `/f/<slug>` URL. Existing `/form/<slug>` URLs continue to work. Use the form's URL slug field to choose a concise name such as `reg-team`.
@@ -16,7 +16,7 @@ A static React site for YMR Global group links, custom forms, and QR codes.
 The SQL schema is in `supabase/schema.sql`. It creates the links, forms, responses, QR codes, click/scan event tables, row-level security policies, and public tracking RPCs. The React app uses Supabase for admin sign-in, shared data, public form submissions, and tracked redirects.
 
 1. Create a Supabase project in the [Supabase Dashboard](https://supabase.com/dashboard).
-2. Open **SQL Editor**, create a query, paste all of `supabase/schema.sql`, and run it once. If the project already has the earlier schema, run `supabase/forms_upgrade.sql` instead; it adds the department landing-page column, custom form settings, and upload buckets without replacing existing data.
+2. Open **SQL Editor**, create a query, paste all of `supabase/schema.sql`, and run it once. If the project already has the earlier schema, run `supabase/forms_upgrade.sql` instead; it adds the department and campus landing-page categories, imports the supplied campus links, adds custom form settings, and configures upload buckets without replacing existing data.
 3. In **Authentication > Users**, create your admin user. Disable public sign-ups after creating the admin account.
 4. In SQL Editor, grant the admin user access by inserting their user ID:
 
